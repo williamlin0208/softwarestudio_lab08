@@ -30,8 +30,8 @@ function PostForm (props){
     const inputEl = useRef(null);
 
     // TODO
-    const {inputValue,inputDanger,moodToggle,mood} = props;
-    const inputDangerClass = inputDanger ? 'has-danger' : '';
+    const {inputValue,isinputDanger,moodToggle,mood} = props;
+    const inputDangerClass = isinputDanger ? 'has-danger' : '';
 
     const dispatch = useDispatch();
 
@@ -46,6 +46,14 @@ function PostForm (props){
         dispatch(input(e.target.value));
     };
     const handlePost = ()=>{
+        if (mood === 'na') {
+            dispatch(setMoodToggle(true));
+            return;
+        }
+        if (!inputValue) {
+            dispatch(inputDanger(true));
+            return;
+        }
         dispatch(createPost(mood,inputValue));
     };
 
@@ -79,7 +87,7 @@ function PostForm (props){
 
 PostForm.propTypes = {
     inputValue: PropTypes.string,
-    inputDanger: PropTypes.bool,
+    isinputDanger: PropTypes.bool,
     moodToggle: PropTypes.bool,
     mood: PropTypes.string,
     dispatch: PropTypes.func,
@@ -87,7 +95,7 @@ PostForm.propTypes = {
 
 export default connect((state) => ({
         inputValue: state.postForm.inputValue,
-        inputDanger: state.postForm.inputDanger,
+        isinputDanger: state.postForm.inputDanger,
         moodToggle: state.postForm.moodToggle,
         mood: state.postForm.mood
 }))(PostForm);

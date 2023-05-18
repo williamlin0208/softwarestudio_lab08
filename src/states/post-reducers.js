@@ -36,8 +36,6 @@ export function post(state = initPostState, action) {
             };
         case '@POST/END_CREATE_VOTE':
             var newPosts = state.posts.map(p => {
-                if (p.id === action.post.id)
-                    return action.post;
                 return p;
             });
             return {
@@ -59,7 +57,18 @@ export function post(state = initPostState, action) {
 /* Search text */
 
 export function searchText(state = '', action) {
-    //TODO
+    switch(action.type){
+        case 'searchText':
+            return{
+                ...state,
+                search: action.searchText
+            };
+        default:
+            return{
+                ...state,
+                search: action.searchText
+            };
+    }
 }
 
 
@@ -82,7 +91,7 @@ export function postForm(state = initPostFormState, action) {
                 ...state,
                 ...action
             };
-        case 'postForm/createPost':
+        case 'postForm/inputdanger':
             return {
                 ...state,
                 ...action

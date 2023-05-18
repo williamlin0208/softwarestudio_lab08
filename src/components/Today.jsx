@@ -64,9 +64,7 @@ function Today(props) {
         </h4>
         <PostForm />
         <PostList />
-        {/* <PostForm />
-        <PostList />
-        {postLoading && <Alert color='warning' className='loading'>Loading...</Alert>} */}
+        {postLoading && <Alert color='warning' className='loading'>Loading...</Alert>}
       </div>
     </div>
   );

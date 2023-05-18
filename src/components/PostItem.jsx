@@ -10,7 +10,7 @@ import './PostItem.css';
 function PostItem(props) {
     //TODO
 
-    const {id,mood,ts,text,clearVotes,cloudsVotes,drizzleVotes,rainVotes,thunderVotes,snowVotes,windyVotes,tooltipOpen} = props;
+    const {id,mood,ts,searchText,text,clearVotes,cloudsVotes,drizzleVotes,rainVotes,thunderVotes,snowVotes,windyVotes,tooltipOpen} = props;
     const dispatch = useDispatch();
     
     const handleClick = ()=>{
@@ -24,7 +24,7 @@ function PostItem(props) {
     const handleVote = (vote)=>{
         dispatch(createVote(id, vote));
         dispatch(setTooltipToggle(id,false));
-        dispatch(listPosts());
+        dispatch(listPosts(searchText));
     }
 
 
@@ -83,4 +83,5 @@ PostItem.propTypes = {
 
 export default connect((state, ownProps) => ({
     tooltipOpen: state.postItem.tooltipOpen[ownProps.id] ? true : false,
+    searchText: state.searchText
 }))(PostItem);

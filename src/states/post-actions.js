@@ -54,21 +54,6 @@ export function listPosts(searchText) {
 
 export function createPost(mood, text) {
     //TODO
-    let rv = {};
-    let uncomplete = false;
-    rv.type = 'postForm/createPost';
-    if (mood === 'na') {
-        rv.moodToggle = true;
-        uncomplete = true;
-    }
-    if (!text) {
-        rv.inputDanger = true;
-        uncomplete = true;
-    }
-    if(uncomplete){
-        console.log('danger when create post');
-        return rv;
-    }
 
     return (dispatch, getState) => {
         dispatch(startLoading());
@@ -101,7 +86,10 @@ export function createVote(id, mood) {
 /*  Search text */
 
 export function setSearchText(searchText) {
-    // TODO
+    return {
+        type: 'searchText',
+        searchText: searchText
+    };
 }
 
 /*  Post Form */
@@ -117,7 +105,10 @@ export function input(text) {
 };
 
 export function inputDanger(danger) {
-    //TODO
+    return {
+        type: 'postForm/inputdanger',
+        inputDanger: danger
+    }
 };
 
 export function toggleMood() {

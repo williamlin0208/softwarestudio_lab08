@@ -1,4 +1,5 @@
 import React, { useState, useRef } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import {
     BrowserRouter as Router,
     Route,
@@ -18,12 +19,16 @@ import {
 import Today from 'components/Today.jsx';
 import Forecast from 'components/Forecast.jsx';
 
+
 import './Main.css';
+import { listPosts } from '/states/post-actions';
 
 function Main() {
     const [navbarToggle, setNavbarToggle] = useState(false);
     const [searchText, setSearchText] = useState('');
     const searchEl = useRef(null);
+    
+    const dispatch = useDispatch();
 
     const handleNavbarToggle = () => {
         setNavbarToggle(!navbarToggle);
@@ -32,7 +37,8 @@ function Main() {
     const handleSearchKeyPress = (e) => {
         var keyCode = e.keyCode || e.which;
         if (keyCode === 13) {
-            setSearchText(e.target.value);
+            setSearchText(e.target.value)
+            dispatch(listPosts(e.target.value));
         }
     };
 
